@@ -1,4 +1,15 @@
 # These are the necessary import declarations
+# https://opentelemetry.io/docs/instrumentation/python/getting-started/
+'''
+run in otel-getting-started dir with,
+
+source ./bin/activate
+
+opentelemetry-instrument \
+    --traces_exporter console \
+    --metrics_exporter console \
+    flask run
+'''
 from opentelemetry import trace
 from opentelemetry import metrics
 
@@ -22,7 +33,7 @@ def roll_dice():
     return str(do_roll())
 
 def do_roll():
-    with tracer.start_as_current_span("do_roll") as rollspan:  
+    with tracer.start_as_current_span("do_roll") as rollspan:
         res = randint(1, 6)
         rollspan.set_attribute("roll.value", res)
         # This adds 1 to the counter for the given roll value
