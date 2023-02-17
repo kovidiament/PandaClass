@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskapp-deployment
+  labels:
+    app: flaskapp
+spec:
+  selector:
+    matchLabels:
+      app: flaskapp
+  template:
+    metadata:
+      labels:
+        app: flaskapp
+    spec:
+      containers:
+      - name: flask-app-v1
+        image: localhost:32000/flask-app-v1:v1
+# Use the localhost:32000 path to use image from registry service
+# e.g.  image: localhost:32000/hello-app:v3
+        ports:
+        - containerPort: 5000
